@@ -1,0 +1,1 @@
+initSidebarItems({"macro":[["global","Defines the global variables inside the test file."],["kat_cfg","Configure the test files location."],["run","Runs the tests."],["test","Defines the test specific variables inside the test file."]],"mod":[["de","Helper functions to use in serde deserialize_with field attribute"]]});

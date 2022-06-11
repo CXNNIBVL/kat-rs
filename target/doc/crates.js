@@ -1,0 +1,1 @@
+window.ALL_CRATES = ["kat","proc_macro2","quote","serde","serde_derive","syn","toml","unicode_ident"];
