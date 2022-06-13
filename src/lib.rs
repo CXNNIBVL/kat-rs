@@ -409,6 +409,8 @@
 
 mod de;
 pub use de::*;
+pub use serde;
+pub use toml;
 
 /// Configure the test files location.
 #[macro_export]
