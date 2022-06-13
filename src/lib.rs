@@ -9,6 +9,7 @@
 //! 
 //! Under the hood, Kat uses [Serde](https://docs.rs/serde/latest/serde/index.html)
 //! and [Toml-rs](https://docs.rs/toml/latest/toml/) to deserialize test data.
+//! Both need to be added as dependencies to your crate.
 //!
 //! ## Getting Started
 //! ## Toml file layout
