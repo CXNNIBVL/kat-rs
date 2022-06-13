@@ -6,7 +6,6 @@ description = "Framework for known-answer tests"
 readme = "README.md"
 repository = "https://github.com/CXNNIBVL/kat-rs"
 license = "Apache-2.0"
-license-file = "LICENSE"
 keywords = ["framework", "test", "tests", "toml", "serde"]
 categories = ["development-tools", "development-tools::testing"]
 include = ["/src", "LICENSE", "README.md"]
