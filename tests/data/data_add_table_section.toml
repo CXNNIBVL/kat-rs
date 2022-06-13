@@ -1,0 +1,24 @@
+[global]
+global_value = "GLOBAL"
+
+[global.table]
+name = "GLOBAL TABLE"
+value = 69
+
+[[test]]
+test_value = "TEST"
+
+[test.table]
+name = "TEST TABLE"
+value = 69
+
+[[test]]
+test_value = "TEST"
+
+[test.table]
+name = "TEST TABLE"
+value = 69
+
+[[test]]
+test_value = "TEST"
+table = { name = "TEST TABLE", value = 69 }

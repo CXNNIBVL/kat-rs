@@ -1,10 +1,22 @@
 [package]
 name = "kat"
 version = "0.1.0"
+authors = ["Tobias Baumgartl"]
+description = "Framework for known-answer tests"
+readme = "README.md"
+repository = "https://github.com/CXNNIBVL/kat-rs"
+license = "Apache-2.0"
+license-file = "LICENSE"
+keywords = ["framework", "test", "tests", "toml", "serde"]
+categories = ["development-tools", "development-tools::testing"]
+exclude = ["/docs", "/target", "/tests", "/scripts"]
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+doctest = false
 
 [dependencies]
 toml = "0.5.8"
-serde = { version = "1.0.136", features = ["derive"] }
+serde = "1.0.136"
+serde_derive = "1.0.137"

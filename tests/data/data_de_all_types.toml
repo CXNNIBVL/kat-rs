@@ -1,0 +1,21 @@
+
+[global]
+string = "STRING"
+int = 69
+float = 3.1415
+toml_bool = true
+date = 1979-05-27T07:32:00
+toml_array = [0,1,2,3]
+from_date = 1979-05-27T07:32:00
+from_bool = false
+from_float = 69.69
+from_int = 187
+from_string = "STRING HOLDER"
+from_de = "DYN"
+inline_table = { value = "33er" }
+
+[global.table]
+value = 33
+
+[[test]]
+v = 420

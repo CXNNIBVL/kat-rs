@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["TomlArray","Type to deserialize a single value-type toml Array from"]],"type":[["TomlBool","Type to deserialize a toml Bool from"],["TomlDate","Type to deserialize a toml Datetime from"],["TomlFloat","Type to deserialize a toml Float from"],["TomlInt","Type to deserialize a toml Int from"],["TomlString","Type to deserialize a toml String from"]]});

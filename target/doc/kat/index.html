@@ -3,100 +3,397 @@
         </a><h2 class="location"></h2>
     </nav>
     <nav class="sidebar"><a class="sidebar-logo" href="../kat/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div>
-        </a><h2 class="location"><a href="#">Crate kat</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 0.1.0</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><section><div class="block"><ul><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li></ul></div></section><div id="sidebar-vars" data-name="kat" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../kat/index.html"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
-    <h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">kat</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/kat/lib.rs.html#1-355">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Testing framework for known answer tests.</p>
+        </a><h2 class="location"><a href="#">Crate kat</a></h2><div class="sidebar-elems"><div class="block"><ul><li class="version">Version 0.1.0</li><li><a id="all-types" href="all.html">All Items</a></li></div></ul><section><div class="block"><ul><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#traits">Traits</a></li><li><a href="#derives">Derive Macros</a></li></ul></div></section><div id="sidebar-vars" data-name="kat" data-ty="mod" data-relpath=""></div><script defer src="sidebar-items.js"></script></div></nav><main><div class="width-limiter"><div class="sub-container"><a class="sub-logo-container" href="../kat/index.html"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></a><nav class="sub"><div class="theme-picker hidden"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu" title="themes"><img width="22" height="22" alt="Pick another theme!" src="../brush.svg"></button><div id="theme-choices" role="menu"></div></div><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><button type="button" id="help-button" title="help">?</button><a id="settings-menu" href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></form></nav></div><section id="main-content" class="content"><div class="main-heading">
+    <h1 class="fqn"><span class="in-band">Crate <a class="mod" href="#">kat</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></span></h1><span class="out-of-band"><a class="srclink" href="../src/kat/lib.rs.html#1-532">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Testing framework for known answer tests.</p>
 <p>This crate aims to drastically reduce the boilerplate code
-associated with rust tests, as well as to make tests easier
+associated with rust tests, as well as to make known-answer tests easier
 to write and extend.</p>
-<p>This framework splits its implementation into the test implementation
+<p>This framework splits the tests into the test implementation
 and data, which is stored in .toml files.</p>
-<h3 id="example"><a href="#example">Example</a></h3><h4 id="toml-file-layout"><a href="#toml-file-layout">Toml file layout</a></h4>
-<p>The toml file must contain two sections, the global section
-and the test section or sections.</p>
+<p>Under the hood, Kat uses <a href="https://docs.rs/serde/latest/serde/index.html">Serde</a>
+and <a href="https://docs.rs/toml/latest/toml/">Toml-rs</a> to deserialize test data.</p>
+<h3 id="getting-started"><a href="#getting-started">Getting Started</a></h3><h3 id="toml-file-layout"><a href="#toml-file-layout">Toml file layout</a></h3>
+<p>The toml file must contain two sections, the <strong>global section</strong>
+and the <strong>test section</strong> (or sections).</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code>[<span class="ident">global</span>] <span class="comment">// In this section global variables are defined</span>
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// In this section global variables are defined.</span>
+[<span class="ident">global</span>]
 <span class="ident">my_global_var</span> <span class="op">=</span> <span class="string">&quot;This is a global variable&quot;</span>
- 
-[[<span class="ident">test</span>]] <span class="comment">// In these sections we define test cases</span>
-<span class="ident">id</span> <span class="op">=</span> <span class="number">0</span>
-<span class="ident">data</span> <span class="op">=</span> <span class="string">&quot;This is data for test 0&quot;</span>
- 
-[[<span class="ident">test</span>]] <span class="comment">// Multiple tests can be defined like this</span>
-<span class="ident">id</span> <span class="op">=</span> <span class="number">1</span>
-<span class="ident">data</span> <span class="op">=</span> <span class="string">&quot;This is data for test 1&quot;</span></code></pre></div>
-<h4 id="writing-the-tests"><a href="#writing-the-tests">Writing the tests</a></h4>
-<p>Writing the tests is just as straight forward as writing the data</p>
 
-<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// In your test files global namespace (e.g tests/my_test.rs)</span>
- 
-<span class="comment">// This macro configures the filepath of your test file.</span>
-<span class="comment">// The path will be interpreted, relative to the workspace root.</span>
-<span class="comment">//</span>
-<span class="comment">// In this case kat will look for the file:</span>
-<span class="comment">// &quot;WORKSPACE_ROOT/tests/data/my_data.toml&quot;</span>
-<span class="comment">//</span>
-<span class="comment">// The file extension can be ommited, since we only support toml</span>
-<span class="macro">kat_cfg!</span>(<span class="ident">tests</span><span class="op">/</span><span class="ident">data</span><span class="op">/</span><span class="ident">my_data</span>);
- 
-<span class="comment">// Now we define our global variables</span>
+<span class="comment">// In these sections we define test cases.</span>
+<span class="comment">// Each test owns its own data. </span>
+<span class="comment">// Though every test must have the same</span>
+<span class="comment">// data signature</span>
+[[<span class="ident">test</span>]]
+<span class="ident">id</span> <span class="op">=</span> <span class="number">0</span>  <span class="comment">// int</span>
+<span class="ident">data</span> <span class="op">=</span> <span class="string">&quot;This is data for test 0&quot;</span> <span class="comment">// string</span>
+<span class="ident">input</span> <span class="op">=</span> <span class="string">&quot;INPUT&quot;</span> <span class="comment">// string</span>
+<span class="ident">expected</span> <span class="op">=</span> <span class="string">&quot;INPUT&quot;</span> <span class="comment">// string</span>
+
+<span class="comment">// Multiple tests can be defined with</span>
+<span class="comment">// consecutive &quot;test&quot; tables</span>
+[[<span class="ident">test</span>]]
+<span class="ident">id</span> <span class="op">=</span> <span class="number">1</span>  <span class="comment">// int</span>
+<span class="ident">data</span> <span class="op">=</span> <span class="string">&quot;This is data for test 1&quot;</span> <span class="comment">// string</span>
+<span class="ident">input</span> <span class="op">=</span> <span class="string">&quot;INPUT&quot;</span> <span class="comment">// string</span>
+<span class="ident">expected</span> <span class="op">=</span> <span class="string">&quot;INPUT&quot;</span> <span class="comment">// string</span></code></pre></div>
+<p>If you’d like a comprehensive list of types, that you can
+include in your toml file, then visit the 
+<a href="https://toml.io/en/v1.0.0">Toml Website</a></p>
+<h3 id="writing-the-tests"><a href="#writing-the-tests">Writing the tests</a></h3>
+<p>Writing the tests is just as straight forward as writing the data.
+This tutorial will go step by step, in order of definition, and is based
+on the earlier demonstrated toml file layout.</p>
+<h3 id="import-the-kat-crate"><a href="#import-the-kat-crate">Import the kat crate</a></h3>
+<p>This can be done, either in your test files global namespace
+(e.g tests/my_test.rs), or in a submodule 
+(e.g tests/my_test.rs::my_submodule).</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Import Kat</span>
+<span class="kw">use</span> <span class="ident">kat</span>::<span class="kw-2">*</span>;</code></pre></div>
+<h3 id="configure-the-test-file-path"><a href="#configure-the-test-file-path">Configure the test file path</a></h3>
+<p>The <a href="macro.kat_cfg.html" title="kat_cfg">kat_cfg</a> macro configures the filepath of your
+test file. The path will be interpreted, relative to the
+workspace root. The file extension can be ommited, since we only support toml.
+String quotes around the path are not needed, since kat will
+directly interpolate the path from the macro expression.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// &quot;WORKSPACE_ROOT/tests/data/my_data.toml&quot;</span>
+<span class="macro">kat_cfg!</span>(<span class="ident">tests</span><span class="op">/</span><span class="ident">data</span><span class="op">/</span><span class="ident">my_data</span>);</code></pre></div>
+<h3 id="global-and-test-variables"><a href="#global-and-test-variables">Global and Test variables</a></h3>
+<p>Now we define the layout for our global and test variables.
+Define the variables, just like you would in a normal
+Rust struct.</p>
+<p>Since Kat, internally uses Serde to deserialize the variables,
+every type in <a href="macro.global.html" title="global">global</a> and <a href="macro.test.html" title="test">test</a> must derive Deserialize.</p>
+<p>More to deserialization of types, in the
+<a href="./#deserializing-types">Deserializing Types section</a></p>
+<p>The <a href="macro.global.html" title="global">global</a> and <a href="macro.test.html" title="test">test</a> macros will generate structs 
+which will later be parsed as the test files content.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Define global variables</span>
 <span class="macro">global!</span> {
- 
-<span class="comment">// The name of the variable must be the same</span>
-<span class="comment">// as the one defined in your data file.</span>
-<span class="comment">// Kat internally uses serde to parse the key in</span>
-<span class="comment">// your toml file as this variable.</span>
+<span class="comment">// The name of the variable must match</span>
+<span class="comment">// the one defined in your data file.</span>
  <span class="ident">my_global_var</span>: <span class="ident">String</span>
 }
- 
-<span class="comment">// We want to parse the data key</span>
-<span class="comment">// in the test file, into this custom struct</span>
-<span class="kw">struct</span> <span class="ident">MyData</span>(<span class="ident">String</span>);
- 
-<span class="comment">// Now we define our test specific variables</span>
-<span class="comment">// The same conventions, as in the global! </span>
-<span class="comment">// macro do apply.</span>
+
+<span class="comment">// Define our test specific variables.</span>
+<span class="comment">// The same conventions, as in the global!</span>
+<span class="comment">// macro apply.</span>
 <span class="macro">test!</span> {
   <span class="ident">id</span>: <span class="ident">usize</span>,
-   
-  <span class="comment">// To be able to parse the string,</span>
-  <span class="comment">// we need to add a serde deserialize</span>
-  <span class="comment">// attribute. See serde for more info on that.</span>
-  <span class="comment">// Kat offers helper functions which can be used</span>
-  <span class="comment">// in serdes deserialize_with attribute.</span>
-  <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;kat::from_string&quot;</span>)]</span>
-  <span class="ident">data</span>: <span class="ident">MyData</span>
-}
- 
-<span class="comment">// Now we also need to implement From&lt;String&gt; for MyData,</span>
-<span class="comment">// since the trait bounds on kat::from_string require us</span>
-<span class="comment">// to do so</span>
-<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">MyData</span> {
-  <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">s</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
-    <span class="ident">MyData</span>(<span class="ident">s</span>)
-  }
-}
- 
-<span class="comment">// And finally we provide the runner for our tests</span>
+  <span class="ident">data</span>: <span class="ident">String</span>,
+  <span class="ident">input</span>: <span class="ident">String</span>,
+  <span class="ident">expected</span>: <span class="ident">String</span>,
+}</code></pre></div>
+<h3 id="running-the-tests"><a href="#running-the-tests">Running the tests</a></h3>
+<p>And finally we provide the runner for our tests.</p>
+<p>Depending on your IDE, you can see 
+a “Run tests” hint (VS Code for example).</p>
+<p>The tests will be run in the module 
+“YOUR_MODULE::kat_tests”, and the main test function
+is simply called “tests”.</p>
+<p>Inside the <a href="macro.run.html" title="run">run</a> macro, you get access to your global and
+test variables, inside the here named variables <code>globals</code> and <code>test_case</code>.
+Both can be named like you would any other variable.</p>
+<p>On top of that you can execute any statements inside the macro.
+Though, mutating <code>globals</code> and <code>test_case</code> is not possible, since
+they’re internally defined as immutable aka read-only.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Test Runner</span>
 <span class="macro">run!</span> {
-    <span class="comment">// The first two args of this macro are</span>
-    <span class="comment">// the variable name for the global variables holder,</span>
-    <span class="comment">// and the testcase variables holder.</span>
-    <span class="ident">globals</span>, <span class="ident">test_case</span>,
- 
-    <span class="comment">// Now pass the statements you want to run</span>
-    <span class="macro">println!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">global</span>.<span class="ident">my_global_var</span>); <span class="comment">// We can access the global variable, its behind a reference though</span>
-    <span class="macro">println!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">test_case</span>.<span class="ident">id</span>); <span class="comment">// In similar fashion, the test case. Here you get owned access</span>
-    <span class="ident">my_super_expensive_function</span>(); <span class="comment">// Any function can be called.</span>
-    <span class="ident">mymod::my_function</span>(); <span class="comment">// Also from other modules</span>
-    <span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="number">25</span>; <span class="comment">// Any statement can be run!</span>
+    <span class="comment">// Test Runner</span>
+    <span class="comment">//</span>
+    <span class="comment">// Note the lambda like invocation syntax.</span>
+    <span class="comment">// It&#39;s specified in the macro as a match, for</span>
+    <span class="comment">// easier readability and familiarity. </span>
+    <span class="op">|</span><span class="ident">globals</span>, <span class="ident">test_case</span><span class="op">|</span> -&gt; {
+
+        <span class="comment">// Now pass the statements you want to run</span>
+
+        <span class="comment">// We can access the global variable.</span>
+        <span class="macro">println!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">global</span>.<span class="ident">my_global_var</span>);
+        
+        <span class="comment">// In similar fashion, the test case.</span>
+        <span class="macro">println!</span>(<span class="string">&quot;{}&quot;</span>, <span class="ident">test_case</span>.<span class="ident">id</span>);
+        
+        <span class="comment">// Any statements can be executed</span>
+
+        <span class="comment">// Assertions</span>
+        <span class="macro">assert_eq!</span>(<span class="ident">test_case</span>.<span class="ident">input</span>, <span class="ident">test_case</span>.<span class="ident">expected</span>);    
+
+        <span class="comment">// Function call which is defined somewhere...</span>
+        <span class="ident">my_super_expensive_function</span>();
+        
+        <span class="comment">// Also from other modules</span>
+        <span class="ident">mymod::my_function</span>();
+
+        <span class="comment">// Variables</span>
+        <span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="number">25</span>;
+
+        <span class="comment">// Macros</span>
+        <span class="macro">my_crate::some_macro!</span>();
+    }
  }
- </code></pre></div>
+</code></pre></div>
+<h4 id="panics"><a href="#panics">Panics</a></h4>
+<p>The runner panics, if the test file wasn’t found,
+an IO Error occured (e.g File open unsuccessful),
+or if toml parsing was erroneous.</p>
+<hr />
+<p>All in all, we end up with a structure like this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Path configuration</span>
+<span class="ident">kat_cfg</span>(...);
+
+<span class="comment">// Define global variables</span>
+<span class="macro">global!</span> {
+  ...
+}
+
+<span class="comment">// Define Test variables</span>
+<span class="macro">test!</span> {
+ ...
+}
+
+<span class="comment">// Implement Test Runner</span>
+<span class="macro">run!</span> {
+  <span class="op">|</span><span class="ident">global</span>, <span class="ident">test</span><span class="op">|</span> -&gt; {
+    ...
+  }
+
+}</code></pre></div>
+<h3 id="runner-attributes"><a href="#runner-attributes">Runner attributes</a></h3>
+<p>As per usual rust tests, you can annotate the <a href="macro.run.html" title="run">run</a> macro with
+<a href="https://doc.rust-lang.org/reference/attributes/testing.html">test attributes</a>. 
+The initial <code>#[test]</code> attribute is already being added for you internally.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Ignore tests</span>
+<span class="macro">run!</span> {
+  <span class="attribute">#[<span class="ident">ignore</span> <span class="op">=</span> <span class="string">&quot;not yet implemented&quot;</span>]</span>
+  <span class="op">|</span><span class="ident">global</span>, <span class="ident">test</span><span class="op">|</span> -&gt; {
+     ...  
+  }   
+}</code></pre></div>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Should panic</span>
+<span class="comment">//</span>
+<span class="comment">// Note, that when running the tests from</span>
+<span class="comment">// the &#39;run&#39; hint in your IDE, the test will</span>
+<span class="comment">// still be logged as fail. The test will</span>
+<span class="comment">// only accept the panic, when run with</span>
+<span class="comment">// &quot;Cargo test&quot; </span>
+<span class="macro">run!</span> {
+  <span class="attribute">#[<span class="ident">should_panic</span>(<span class="ident">expected</span> <span class="op">=</span> <span class="string">&quot;values don&#39;t match&quot;</span>)]</span>
+  <span class="op">|</span><span class="ident">global</span>, <span class="ident">test</span><span class="op">|</span> -&gt; {
+     <span class="macro">assert_eq!</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="string">&quot;values don&#39;t match&quot;</span>);
+  }   
+}</code></pre></div>
+<h3 id="type-attributes"><a href="#type-attributes">Type Attributes</a></h3>
+<p>Kat supports type attributes for both, types defined
+in the <a href="macro.global.html" title="global">global</a> and <a href="macro.test.html" title="test">test</a> macro.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Global macro as an example</span>
+<span class="macro">global!</span> {
+  <span class="ident">my_type</span>: <span class="ident">String</span>,
+  
+  <span class="attribute">#[<span class="ident">my_attribute</span>]</span>
+  <span class="ident">my_attributed_type</span>: <span class="ident">usize</span>
+}</code></pre></div>
+<h3 id="deserializing-types"><a href="#deserializing-types">Deserializing Types</a></h3><h4 id="common-types"><a href="#common-types">Common Types</a></h4>
+<p>Kat provides the major toml types in its <a href="types/index.html" title="types">types</a> module.
+However, Kat does not support deserialization of multi-type
+arrays. For this case it is encouraged to deserialize an array
+of tables.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use</span> <span class="ident">kat</span>::{<span class="ident">types</span>, <span class="ident">DeriveTable</span>};
+
+<span class="comment">// Kat provides a &quot;DeriveTable&quot; attribute,</span>
+<span class="comment">// which actually is an alias for Serde&#39;s </span>
+<span class="comment">// Deserialize proc-macro.</span>
+<span class="comment">//</span>
+<span class="comment">// This is how you define a table</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">DeriveTable</span>)]</span>
+<span class="kw">struct</span> <span class="ident">MyTable</span> {
+    <span class="ident">value</span>: <span class="ident">types::TomlInt</span>
+}
+
+<span class="macro">global!</span> {
+    <span class="ident">toml_string</span>: <span class="ident">types::TomlString</span>,
+    <span class="ident">toml_int</span>: <span class="ident">types::TomlInt</span>,
+    <span class="ident">toml_float</span>: <span class="ident">types::TomlFloat</span>,
+    <span class="ident">toml_date</span>: <span class="ident">types::TomlDate</span>,
+    <span class="ident">toml_bool</span>: <span class="ident">types::TomlBool</span>,
+    <span class="ident">toml_int_array</span>: <span class="ident">types::TomlArray</span><span class="op">&lt;</span><span class="ident">types::TomlInt</span><span class="op">&gt;</span>,
+    <span class="ident">toml_table</span>: <span class="ident">MyTable</span>,
+}
+
+...</code></pre></div>
+<p>The test file would look something like this:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>[<span class="ident">global</span>]
+<span class="ident">toml_string</span> <span class="op">=</span> <span class="string">&quot;Toml String&quot;</span>
+<span class="ident">toml_int</span> <span class="op">=</span> <span class="number">10</span>
+<span class="ident">toml_float</span> <span class="op">=</span> <span class="number">3.1415</span>
+<span class="ident">toml_date</span> <span class="op">=</span> <span class="number">1979</span><span class="op">-</span><span class="number">05</span><span class="op">-</span><span class="number">27</span>
+<span class="ident">toml_bool</span> <span class="op">=</span> <span class="bool-val">true</span>
+<span class="ident">toml_int_array</span> <span class="op">=</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]
+[<span class="ident">global</span>.<span class="ident">toml_table</span>]
+<span class="ident">value</span> <span class="op">=</span> <span class="number">22</span>
+
+...</code></pre></div>
+<h4 id="deserializing-custom-types"><a href="#deserializing-custom-types">Deserializing Custom Types</a></h4>
+<p>Since Kat internally deserializes its types with the help of Serde and Toml-rs,
+primitive types like <code>String</code> or <code>usize</code> can be parsed directly from toml, without
+any macro magic, because Serde or Toml-rs provide internal deserialization implementations.
+So technically you could deserialize custom types with serde attributes.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// Your custom type</span>
+<span class="kw">struct</span> <span class="ident">StringHolder</span>(<span class="ident">String</span>);
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">StringHolder</span> {
+   <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">s</span>: <span class="ident">String</span>) -&gt; <span class="self">Self</span> {
+        <span class="self">Self</span>(<span class="ident">s</span>)
+   }
+}
+
+<span class="comment">// Generic String deserializer</span>
+<span class="comment">// Deserialize a [T] if it&#39;s String constructable</span>
+<span class="kw">fn</span> <span class="ident">deserialize_from_string</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span>, <span class="ident">D</span>, <span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">deserializer</span>: <span class="ident">D</span>) -&gt; <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">D::Error</span><span class="op">&gt;</span>
+    <span class="kw">where</span> 
+        <span class="ident">D</span>: <span class="ident">Deserializer</span><span class="op">&lt;</span><span class="lifetime">&#39;de</span><span class="op">&gt;</span>,
+        <span class="ident">T</span>: <span class="ident">From</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span>
+{
+    <span class="kw">let</span> <span class="ident">s</span> <span class="op">=</span> <span class="ident">String::deserialize</span>(<span class="ident">deserializer</span>)<span class="question-mark">?</span>;
+    <span class="prelude-val">Ok</span>(<span class="ident">T::from</span>(<span class="ident">s</span>))
+}
+
+<span class="macro">global!</span> {
+    <span class="comment">// Use Serde attribute</span>
+    <span class="attribute">#[<span class="ident">serde</span>(<span class="ident">deserialize_with</span> <span class="op">=</span> <span class="string">&quot;deserialize_from_string&quot;</span>)]</span>
+    <span class="ident">string_holder</span>: <span class="ident">StringHolder</span>
+}
+
+...</code></pre></div>
+<p>However, this results in a lot of boilerplate code.</p>
+<p>Luckily, Kat provides you with streamlined ways, in which you can
+focus on the From implementation, and let Kat handle the code generation:</p>
+<h4 id="deserialize-custom-types-the-kat-way"><a href="#deserialize-custom-types-the-kat-way">Deserialize Custom Types: The Kat way</a></h4>
+<p>Kat provides macros that generate the code needed to deserialize your value.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">struct</span> <span class="ident">StringHolder</span>(<span class="ident">String</span>);
+
+<span class="comment">// Note again the lambda syntax for</span>
+<span class="comment">// familiarity and readability</span>
+<span class="macro">impl_deserialize_from_toml_string!</span>(
+     <span class="op">|</span><span class="ident">s</span><span class="op">|</span> -&gt; <span class="ident">StringHolder</span> {
+       <span class="ident">StringHolder</span>(<span class="ident">s</span>)
+     }       
+);
+
+<span class="comment">// Now use it</span>
+<span class="macro">global!</span> {
+    <span class="ident">string_holder</span>: <span class="ident">StringHolder</span>
+}</code></pre></div>
+<p>Inside Toml file</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>[<span class="ident">global</span>]
+<span class="ident">string_holder</span> <span class="op">=</span> <span class="string">&quot;Hey Ho!&quot;</span>
+</code></pre></div>
+<p>Here, <code>s</code> denotes the variable name for the passed 
+<a href="types/type.TomlString.html">TomlString</a>, you can name it whatever
+you wish for. Then follows an arrow with the type, the code is
+to be generated for, here <code>StringHolder</code>. And finally the function
+body. </p>
+<p>The function body, is essentially the body of the
+<code>impl From&lt;TomlString&gt; for StringHolder</code> implementation,
+this macro generates. The macro also generates a deserialize
+implementation.</p>
+<p>Macros like this exist for all types in the <a href="types/index.html" title="types">types</a> module, but Table and Array.
+For these two, you will need to call the <a href="macro.impl_deserialize_from_deserializable.html" title="impl_deserialize_from_deserializable">impl_deserialize_from_deserializable</a> macro.</p>
+<p>The <a href="macro.impl_deserialize_from_deserializable.html" title="impl_deserialize_from_deserializable">impl_deserialize_from_deserializable</a> macro can deserialize a custom type
+from any type that implements Serde’s Deserialize trait.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">DeriveTable</span>)]</span>
+<span class="kw">struct</span> <span class="ident">MyTable</span> {
+    <span class="ident">value</span>: <span class="ident">TomlInt</span>
+}
+
+<span class="kw">struct</span> <span class="ident">MyTableHolder</span>(<span class="ident">MyTable</span>)
+
+<span class="comment">// Denote the input type being typed.</span>
+<span class="comment">// As stated earlier, this macro</span>
+<span class="comment">// generates `impls` from any type that</span>
+<span class="comment">// is deserializable, so it needs the type</span>
+<span class="comment">// annotation.</span>
+<span class="comment">// The rest stays exactly the same.</span>
+<span class="comment">// Note, that MyTableHolder doesn&#39;t</span>
+<span class="comment">// have to be a tuple, this still is</span>
+<span class="comment">// simply a From&lt;T&gt; implementation</span>
+<span class="macro">impl_deserialize_from_deserializable!</span>(
+    <span class="op">|</span><span class="ident">table</span>: <span class="ident">MyTable</span><span class="op">|</span> -&gt; <span class="ident">MyTableHolder</span> { 
+        <span class="ident">MyTableHolder</span>(<span class="ident">table</span>)
+    }      
+);
+
+<span class="comment">// From Array</span>
+<span class="kw">struct</span> <span class="ident">MyArrayHolder</span>(<span class="ident">TomlArray</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span>);
+<span class="macro">impl_deserialize_from_deserializable!</span>(
+    <span class="op">|</span><span class="ident">array</span>: <span class="ident">TomlArray</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span><span class="op">|</span> -&gt; <span class="ident">MyArrayHolder</span> {
+        <span class="ident">MyArrayHolder</span>(<span class="ident">array</span>)
+    }
+);</code></pre></div>
+<p>With this macro, it’s also possible to chain your custom types.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// MyArrayHolder from previous example</span>
+
+<span class="kw">struct</span> <span class="ident">HoldsArrayHolder</span>(<span class="ident">MyArrayHolder</span>);
+<span class="macro">impl_deserialize_from_deserializable!</span>(
+    <span class="op">|</span><span class="ident">holder</span>: <span class="ident">MyArrayHolder</span><span class="op">|</span> -&gt; <span class="ident">HoldsArrayHolder</span> {
+        <span class="ident">HoldsArrayHolder</span>(<span class="ident">holder</span>)
+    }
+);
+</code></pre></div>
+<p>This is possible, since the macro generated 
+the code for the Deserialize trait for <code>MyArrayHolder</code></p>
+<h3 id="final-notes"><a href="#final-notes">Final Notes</a></h3>
+<p>It is discouraged to rename the crate, since many macros
+inside the crate use the <code>kat::</code> module namespace 
+in order to directly depent on a type, thus not cluttering the global namespace.</p>
+<p>On top of that, many exported traits and macros use the <code>__XXX</code> prefix.
+These items typically abstract the code generation away, thus, are private.
+They should <strong>not</strong> be used directly.</p>
 </div></details><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2>
-<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="de/index.html" title="kat::de mod">de</a></div><div class="item-right docblock-short"><p>Helper functions to use in serde deserialize_with field attribute</p>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="types/index.html" title="kat::types mod">types</a></div><div class="item-right docblock-short"><p>Deserializable types</p>
 </div></div></div><h2 id="macros" class="small-section-header"><a href="#macros">Macros</a></h2>
-<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.global.html" title="kat::global macro">global</a></div><div class="item-right docblock-short"><p>Defines the global variables inside the test file.</p>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.__generate_impl_deserialize.html" title="kat::__generate_impl_deserialize macro">__generate_impl_deserialize</a></div><div class="item-right docblock-short"><p>private. should not be used directly</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.global.html" title="kat::global macro">global</a></div><div class="item-right docblock-short"><p>Defines the global variables inside the test file.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.impl_deserialize_from_deserializable.html" title="kat::impl_deserialize_from_deserializable macro">impl_deserialize_from_deserializable</a></div><div class="item-right docblock-short"><p>Generate Deserialize trait for any type that is
+constructable from a type that implements Serde’s Deserialize
+trait</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.impl_deserialize_from_toml_bool.html" title="kat::impl_deserialize_from_toml_bool macro">impl_deserialize_from_toml_bool</a></div><div class="item-right docblock-short"><p>Generate Deserialize trait for any type that is
+constructable from a TomlBool</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.impl_deserialize_from_toml_date.html" title="kat::impl_deserialize_from_toml_date macro">impl_deserialize_from_toml_date</a></div><div class="item-right docblock-short"><p>Generate Deserialize trait for any type that is
+constructable from a TomlDate</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.impl_deserialize_from_toml_float.html" title="kat::impl_deserialize_from_toml_float macro">impl_deserialize_from_toml_float</a></div><div class="item-right docblock-short"><p>Generate Deserialize trait for any type that is
+constructable from a TomlFloat</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.impl_deserialize_from_toml_int.html" title="kat::impl_deserialize_from_toml_int macro">impl_deserialize_from_toml_int</a></div><div class="item-right docblock-short"><p>Generate Deserialize trait for any type that is
+constructable from a TomlInt</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.impl_deserialize_from_toml_string.html" title="kat::impl_deserialize_from_toml_string macro">impl_deserialize_from_toml_string</a></div><div class="item-right docblock-short"><p>Generate Deserialize trait for any type that is
+constructable from a TomlString</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.kat_cfg.html" title="kat::kat_cfg macro">kat_cfg</a></div><div class="item-right docblock-short"><p>Configure the test files location.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.run.html" title="kat::run macro">run</a></div><div class="item-right docblock-short"><p>Runs the tests.</p>
 </div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.test.html" title="kat::test macro">test</a></div><div class="item-right docblock-short"><p>Defines the test specific variables inside the test file.</p>
-</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="kat" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.60.0 (7737e0b5c 2022-04-04)" ></div>
+</div></div></div><h2 id="traits" class="small-section-header"><a href="#traits">Traits</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.__Deserialize.html" title="kat::__Deserialize trait">__Deserialize</a></div><div class="item-right docblock-short"><p>A <strong>data structure</strong> that can be deserialized from any data format supported
+by Serde.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.__DeserializeOwned.html" title="kat::__DeserializeOwned trait">__DeserializeOwned</a></div><div class="item-right docblock-short"><p>A data structure that can be deserialized without borrowing any data from
+the deserializer.</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="trait" href="trait.__Deserializer.html" title="kat::__Deserializer trait">__Deserializer</a></div><div class="item-right docblock-short"><p>A <strong>data format</strong> that can deserialize any data structure supported by
+Serde.</p>
+</div></div></div><h2 id="derives" class="small-section-header"><a href="#derives">Derive Macros</a></h2>
+<div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="derive" href="derive.DeriveTable.html" title="kat::DeriveTable derive">DeriveTable</a></div><div class="item-right docblock-short"><p>Type to generate a table from a struct</p>
+</div></div><div class="item-row"><div class="item-left module-item"><a class="derive" href="derive.__DeriveDeserialize.html" title="kat::__DeriveDeserialize derive">__DeriveDeserialize</a></div><div class="item-right docblock-short"><p>private. should not be used directly</p>
+</div></div></div></section><section id="search" class="content hidden"></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="kat" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.61.0 (fe5b13d68 2022-05-18)" ></div>
 </body></html>

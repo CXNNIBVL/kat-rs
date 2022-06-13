@@ -1,0 +1,8 @@
+
+[global]
+name = "GLOBAL"
+value = 69
+
+[[test]]
+test_name = "TEST"
+value = 420

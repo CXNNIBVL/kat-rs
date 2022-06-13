@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["kat"] = [{"text":"impl&lt;'de, T&gt; <a class=\"trait\" href=\"kat/trait.__Deserialize.html\" title=\"trait kat::__Deserialize\">Deserialize</a>&lt;'de&gt; for <a class=\"struct\" href=\"kat/types/struct.TomlArray.html\" title=\"struct kat::types::TomlArray\">TomlArray</a>&lt;T&gt; <span class=\"where fmt-newline\">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class=\"trait\" href=\"kat/trait.__DeserializeOwned.html\" title=\"trait kat::__DeserializeOwned\">__DeserializeOwned</a>,&nbsp;</span>","synthetic":false,"types":["kat::de::types::TomlArray"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

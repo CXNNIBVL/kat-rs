@@ -1,0 +1,3 @@
+(function() {var implementors = {};
+implementors["kat"] = [{"text":"impl&lt;T&gt; Freeze for <a class=\"struct\" href=\"kat/types/struct.TomlArray.html\" title=\"struct kat::types::TomlArray\">TomlArray</a>&lt;T&gt;","synthetic":true,"types":["kat::de::types::TomlArray"]}];
+if (window.register_implementors) {window.register_implementors(implementors);} else {window.pending_implementors = implementors;}})()

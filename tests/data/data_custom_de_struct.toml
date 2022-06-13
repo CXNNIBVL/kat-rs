@@ -1,0 +1,5 @@
+[global]
+int_data = 22
+
+[[test]]
+string_data = "DATA"
